@@ -20,8 +20,7 @@ client, labels, mode = get_client()
 st.title("BACKLOT")
 st.caption("The intelligence layer behind product returns and recovery")
 if mode == "demo":
-    st.warning("DEMO MODE: all data is SYNTHETIC; image analysis is SIMULATED (no pixels are analysed); "
-               "the report is deterministic unless ANTHROPIC_API_KEY is set. Scores are not real-world fraud detection.")
+    st.warning(“DEMO MODE: all data is SYNTHETIC (made-up sample cases) and image analysis is SIMULATED. Scores are for demonstration only, not real-world fraud detection.”)
 
 ids = client.get("/returns").json().get("return_ids", [])
 with st.sidebar:
