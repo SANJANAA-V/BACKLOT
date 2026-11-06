@@ -1,0 +1,7 @@
+.git
+__pycache__
+.pytest_cache
+*.db
+models/*.joblib
+data/samples/*.jsonl
+data/samples/*.csv
