@@ -1,0 +1,27 @@
+sequenceDiagram
+  participant S as Source service
+  participant G as Gateway
+  participant K as Kafka
+  participant W as Evidence worker
+  participant D as Postgres
+  S->>G: POST /events (ReturnEvent)
+  G->>G: validate schema
+  alt invalid
+    G-->>S: 422 (never published)
+  else bus down
+    G-->>S: 503 (caller retries)
+  else ok
+    G->>K: publish(key=return_id)
+    G-->>S: 202
+  end
+  K->>W: deliver (at least once)
+  W->>D: ledger check (group, event_id)
+  alt already done
+    W->>D: bump duplicate counter, refresh snapshot
+  else new
+    W->>D: store event, recompute reconciliation snapshot
+  end
+  alt handler keeps failing
+    W->>K: publish to DLQ after N attempts
+  end
+  W->>K: commit offset

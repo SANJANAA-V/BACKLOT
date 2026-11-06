@@ -1,0 +1,108 @@
+{
+  "data": {
+    "synthetic": true,
+    "seed": 42,
+    "n_returns": 5000,
+    "label_noise": {
+      "anomalous_to_normal": 0.1,
+      "normal_to_anomalous": 0.01
+    },
+    "split_sizes": {
+      "train": 3000,
+      "val": 1000,
+      "test": 1000
+    },
+    "prevalence": {
+      "train": 0.10666666666666667,
+      "val": 0.107,
+      "test": 0.107
+    }
+  },
+  "validation_pr_auc": {
+    "logistic_regression": 0.8721948422973721,
+    "hist_gradient_boosting": 0.8534193137215352
+  },
+  "chosen_model": "logistic_regression",
+  "test_model": {
+    "threshold": 0.7218310097529063,
+    "precision": 0.9107142857142857,
+    "recall": 0.9532710280373832,
+    "f1": 0.9315068493150684,
+    "pr_auc": 0.8858687718549718,
+    "prevalence": 0.107,
+    "confusion_matrix": {
+      "tn": 883,
+      "fp": 10,
+      "fn": 5,
+      "tp": 102
+    }
+  },
+  "test_rule_baseline": {
+    "threshold": 1.0,
+    "precision": 0.911504424778761,
+    "recall": 0.9626168224299065,
+    "f1": 0.9363636363636364,
+    "pr_auc": 0.8952152794192189,
+    "prevalence": 0.107,
+    "confusion_matrix": {
+      "tn": 883,
+      "fp": 10,
+      "fn": 4,
+      "tp": 103
+    },
+    "note": "flag if rule points >= 1; PR-AUC uses points as score"
+  },
+  "test_model_vs_clean_scenario_labels": {
+    "threshold": 0.7218310097529063,
+    "precision": 1.0,
+    "recall": 0.9911504424778761,
+    "f1": 0.9955555555555555,
+    "pr_auc": 1.0,
+    "prevalence": 0.113,
+    "confusion_matrix": {
+      "tn": 887,
+      "fp": 0,
+      "fn": 1,
+      "tp": 112
+    }
+  },
+  "test_rule_vs_clean_scenario_labels": {
+    "threshold": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "pr_auc": 1.0,
+    "prevalence": 0.113,
+    "confusion_matrix": {
+      "tn": 887,
+      "fp": 0,
+      "fn": 0,
+      "tp": 113
+    }
+  },
+  "permutation_importance_val": {
+    "weight_deviation": 0.5405338183429661,
+    "condition_worse_by": 0.2641351834727714,
+    "identifier_mismatch": 0.12721311884719666,
+    "duplicate_event_count": 0.0013520053755388117,
+    "weight_missing": 0.0,
+    "max_logistics_gap_hours": -0.0006099117182799985,
+    "missing_item_reported": -0.000756549780618121,
+    "identifier_unverified": -0.000959026155288889,
+    "condition_unknown": -0.0025573165341589823,
+    "missing_logistics_count": -0.0038102265518535684,
+    "prior_returns_90d": -0.004591558964059539
+  },
+  "test_by_scenario_flag_rate": {
+    "conflicting_condition": 1.0,
+    "duplicate_logistics_event": 0.0,
+    "empty_package": 1.0,
+    "incomplete_evidence": 0.0,
+    "legitimate_unusual": 0.0,
+    "missing_logistics_scan": 0.0,
+    "normal": 0.0,
+    "visible_damage": 0.0,
+    "weight_discrepancy": 0.9743589743589743,
+    "wrong_product": 1.0
+  }
+}

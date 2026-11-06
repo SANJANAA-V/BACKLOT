@@ -1,0 +1,13 @@
+flowchart LR
+  subgraph Sources[Simulated source services]
+    CP[customer portal] --- LG[logistics] --- WH[warehouse]
+  end
+  Sources -->|POST /events| GW[Event gateway - FastAPI]
+  GW -->|key = return_id| K[(Kafka / Redpanda: return-events)]
+  K --> EW[evidence worker - consumer group]
+  EW -. failures after retries .-> DLQ[(return-events.dlq)]
+  EW --> PG[(PostgreSQL: events, ledger, snapshots, investigations, audit)]
+  API[API - FastAPI] --> PG
+  API --> REC[reconciler] & ML[risk model] & VIS[vision adapter] & DEC[decision engine] & RAG[policy RAG] --> LLM[LLM provider or deterministic fallback]
+  VIS -. cache .-> RD[(Redis)]
+  UI[Streamlit UI] --> API
