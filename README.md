@@ -115,5 +115,8 @@ fairness evaluation, authentication, observability, load testing.
 decision rules, API endpoints, retries/DLQ, vision failures, and the Streamlit app (headless). The real-Kafka test is skipped unless
 `BACKLOT_KAFKA_IT=1` and a broker is running.
 
+
+
+
 Verified run: I replayed 1740 events twice through a Redpanda (Kafka-compatible) broker and the Postgres idempotency ledger stayed at 1720 DONE rows, with no duplicates. To run it: docker compose up --build, then open http://localhost:8501.
 License: MIT.
