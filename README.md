@@ -102,7 +102,7 @@ rule baseline matches the ML model** - the labels are defined by the same logic 
 - Synthetic data only; no real-world validation of any component. Thresholds and demo economics are arbitrary.
 - Simulated vision does not look at pixels; the real adapter was only tested with a mocked API. No serial-number recognition or authenticity checks exist.
 - TF-IDF retrieval is lexical. LLM grounding checks are heuristic.
-- Kafka, Postgres, Redis, Docker, CI Kafka job: written but not executed by the author.
+Redpanda (Kafka-compatible), Postgres and Docker were run end to end in GitHub Codespaces (see Verified run below). Redis is provisioned in the stack but not yet used by application code. The CI Kafka job has not been executed.
 - No authentication, rate limiting or PII handling. Not production-ready.
 - Scores can create automation bias; the system is designed so a person decides, and decisions stay auditable.
 
@@ -115,4 +115,5 @@ fairness evaluation, authentication, observability, load testing.
 decision rules, API endpoints, retries/DLQ, vision failures, and the Streamlit app (headless). The real-Kafka test is skipped unless
 `BACKLOT_KAFKA_IT=1` and a broker is running.
 
+Verified run: I replayed 1740 events twice through a Redpanda (Kafka-compatible) broker and the Postgres idempotency ledger stayed at 1720 DONE rows, with no duplicates. To run it: docker compose up --build, then open http://localhost:8501.
 License: MIT.
