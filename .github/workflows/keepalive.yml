@@ -1,0 +1,30 @@
+name: keep-alive
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install playwright && playwright install --with-deps chromium
+      - run: |
+          python - <<'EOF'
+          from playwright.sync_api import sync_playwright
+          URLS = ["https://backlot.streamlit.app/", "https://orion3.streamlit.app/"]
+          with sync_playwright() as p:
+              b = p.chromium.launch()
+              for u in URLS:
+                  pg = b.new_page()
+                  pg.goto(u, timeout=180000)
+                  try:
+                      pg.get_by_role("button", name="Yes, get this app back up!").click(timeout=20000)
+                  except Exception:
+                      pass
+                  pg.wait_for_timeout(240000)
+                  pg.close()
+              b.close()
+          EOF
